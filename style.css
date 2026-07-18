@@ -1,19 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=VT323&display=swap');
-@import "tailwindcss";
 
-@layer base {
-  body {
-    background-color: #1a1614;
-    color: #e5e5e5;
-    font-family: 'VT323', monospace;
-    font-size: 1.35rem;
-    image-rendering: pixelated;
-    overflow-x: hidden;
-  }
+body {
+  background-color: #1a1614;
+  color: #e5e5e5;
+  font-family: 'VT323', monospace;
+  font-size: 1.35rem;
+  image-rendering: pixelated;
+  overflow-x: hidden;
+}
 
-  h1, h2, h3, h4, .font-pixel {
-    font-family: 'Silkscreen', cursive, monospace;
-  }
+h1, h2, h3, h4, .font-pixel {
+  font-family: 'Silkscreen', cursive, monospace;
 }
 
 /* Custom Minecraft GUI button and container styles */

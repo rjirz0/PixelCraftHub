@@ -1,13 +1,1072 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    <title>Pixel Realms Network | Retro Sandbox Gaming</title>
+    
+    <!-- Link Custom Stylesheet with Fonts and Minecraft panels -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['VT323', 'monospace'],
+              pixel: ['Silkscreen', 'cursive', 'monospace']
+            }
+          }
+        }
+      }
+    </script>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-black">
+
+    <!-- Top Sticky Navbar -->
+    <header class="sticky top-0 z-50 bg-[#141210ee] border-b-4 border-[#3d3d3d] backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+        
+        <!-- Logo Brand -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-[#388e3c] border-2 border-white flex items-center justify-center shadow-[4px_4px_0px_#111]">
+            <span class="text-2xl animate-bounce">💎</span>
+          </div>
+          <div>
+            <h1 class="text-xl md:text-2xl font-bold tracking-wider text-emerald-400 drop-shadow-[2px_2px_0_#000] font-pixel">
+              PIXEL REALMS
+            </h1>
+            <p class="text-xs text-gray-400 font-mono flex items-center gap-1.5 uppercase">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+              <span><span class="players-online-counter font-bold text-white">1,420</span> MINERS ONLINE</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Action Controls -->
+        <div class="flex items-center gap-3 flex-wrap">
+          
+          <!-- Server IP Copy Box -->
+          <button
+            onclick="copyServerIp('General Lobby')"
+            class="mc-button px-3 py-1.5 flex items-center gap-2 text-sm md:text-base"
+            title="Click to copy server IP"
+          >
+            <span class="text-amber-300 font-bold tracking-wide">play.pixelrealms.net</span>
+            <i data-lucide="copy" class="w-4 h-4 text-gray-200"></i>
+          </button>
+
+          <!-- Sound Toggle -->
+          <button
+            onclick="toggleSound()"
+            class="mc-button p-2"
+            title="Toggle Retro 8-Bit SFX"
+            aria-label="Toggle retro sound effects"
+          >
+            <i id="sound-icon" data-lucide="volume-2" class="w-5 h-5 text-emerald-400"></i>
+          </button>
+
+          <!-- Discord Join -->
+          <a
+            href="https://discord.gg/pixelrealms"
+            target="_blank"
+            rel="noopener noreferrer"
+            onclick="playClickSound()"
+            class="mc-button bg-[#5865F2] border-[#7983f5] text-white px-3 py-1.5 flex items-center gap-2 text-sm md:text-base hidden sm:flex"
+          >
+            <i data-lucide="message-square" class="w-4 h-4 fill-white text-white"></i>
+            <span>DISCORD</span>
+          </a>
+        </div>
+
+      </div>
+    </header>
+
+    <main class="flex-1">
+      
+      <!-- Hero Section -->
+      <section class="relative py-12 md:py-20 px-4 bg-dirt-pattern border-b-8 border-[#1f1f1f] shadow-2xl overflow-hidden">
+        
+        <!-- Decorative Floating Pixel Blocks Background -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none select-none overflow-hidden">
+          <div class="absolute top-10 left-10 text-6xl animate-pulse">🟩</div>
+          <div class="absolute bottom-10 right-20 text-7xl animate-bounce">🟫</div>
+          <div class="absolute top-1/2 right-10 text-5xl animate-pulse">🪨</div>
+          <div class="absolute bottom-20 left-1/4 text-6xl animate-bounce">🪙</div>
+        </div>
+
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+          
+          <!-- Tag Badge -->
+          <div class="inline-flex items-center gap-2 bg-[#2b2b2b] border-2 border-[#555] px-4 py-1.5 shadow-[4px_4px_0px_#000] mb-6">
+            <i data-lucide="sparkles" class="w-4 h-4 text-yellow-400 animate-spin"></i>
+            <span class="text-sm md:text-base text-yellow-300 font-pixel tracking-wide uppercase">
+              v2.4 NETHER BASTION UPDATE LIVE
+            </span>
+          </div>
+
+          <!-- Main Title -->
+          <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold text-white tracking-wider uppercase mb-6 leading-tight drop-shadow-[4px_4px_0_#111] font-pixel">
+            CRAFT & <span class="text-emerald-400 underline decoration-amber-500 decoration-4">DEMOLISH</span> THE REALMS
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="text-lg md:text-2xl text-amber-100 max-w-3xl mx-auto mb-10 drop-shadow-[2px_2px_0_#000] leading-relaxed">
+            The ultimate Retro multiplayer sandbox experience. Forge alliances, automate colossal redstone factories, and dominate the weekly blood moon PvP tournaments.
+          </p>
+
+          <!-- Big CTAs -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <button
+              onclick="copyServerIp('Survival Server')"
+              class="mc-button-green px-8 py-4 text-xl md:text-2xl font-bold w-full sm:w-auto flex items-center justify-center gap-3 shadow-[6px_6px_0px_#051c07] hover:scale-105 transition-transform"
+            >
+              <i data-lucide="swords" class="w-7 h-7 animate-pulse text-white"></i>
+              <span>JOIN SERVER NOW</span>
+            </button>
+
+            <a
+              href="#crafting-playground"
+              class="mc-panel px-6 py-4 text-xl md:text-2xl font-bold w-full sm:w-auto inline-flex items-center justify-center gap-2 shadow-[6px_6px_0px_#111] hover:bg-white transition-colors"
+            >
+              <i data-lucide="pickaxe" class="w-6 h-6 text-gray-800"></i>
+              <span>TRY CRAFTING BENCH</span>
+            </a>
+          </div>
+
+          <!-- Quick Features Row -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-8 border-t-4 border-[#3a2712]">
+            <div class="bg-[#1e140aee] p-3 border-2 border-[#5c4021] text-center shadow-md">
+              <span class="text-2xl block mb-1">⚡</span>
+              <span class="text-sm font-bold text-emerald-300 block uppercase font-pixel">20.00 TPS</span>
+              <span class="text-xs text-gray-400 font-mono">Zero Block Lag</span>
+            </div>
+            <div class="bg-[#1e140aee] p-3 border-2 border-[#5c4021] text-center shadow-md">
+              <span class="text-2xl block mb-1">🛡️</span>
+              <span class="text-sm font-bold text-amber-300 block uppercase font-pixel">Anti-Cheat</span>
+              <span class="text-xs text-gray-400 font-mono">Fair Play Shield</span>
+            </div>
+            <div class="bg-[#1e140aee] p-3 border-2 border-[#5c4021] text-center shadow-md">
+              <span class="text-2xl block mb-1">💰</span>
+              <span class="text-sm font-bold text-cyan-300 block uppercase font-pixel">Player Shop</span>
+              <span class="text-xs text-gray-400 font-mono">Dynamic Market</span>
+            </div>
+            <div class="bg-[#1e140aee] p-3 border-2 border-[#5c4021] text-center shadow-md">
+              <span class="text-2xl block mb-1">🎉</span>
+              <span class="text-sm font-bold text-pink-300 block uppercase font-pixel">Vote Rewards</span>
+              <span class="text-xs text-gray-400 font-mono">Free Daily Crates</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Server Status Panel -->
+      <section class="py-12 px-4 bg-[#141210] border-t-4 border-b-4 border-[#3d3d3d]">
+        <div class="max-w-6xl mx-auto">
+          
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
+            <div>
+              <h2 class="text-2xl md:text-4xl font-bold text-white font-pixel flex items-center gap-3">
+                <i data-lucide="server" class="w-8 h-8 text-emerald-400"></i>
+                <span>REAL-TIME SERVER STATUS</span>
+              </h2>
+              <p class="text-gray-400 text-sm mt-1 font-mono">
+                Cluster Node: <span class="text-amber-400 font-bold">us-east-1.pixelrealms.node</span>
+              </p>
+            </div>
+
+            <button
+              id="ping-btn"
+              onclick="testPing()"
+              class="mc-button px-4 py-2 text-sm flex items-center gap-2 self-start md:self-auto"
+            >
+              <i id="ping-spinner" data-lucide="refresh-cw" class="w-4 h-4 text-emerald-400"></i>
+              <span>TEST CONNECTION PING</span>
+            </button>
+          </div>
+
+          <!-- Bento Grid Stats -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- Status Online -->
+            <div class="mc-panel-dark p-5 border-2 border-emerald-500 relative overflow-hidden shadow-lg">
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-400 font-mono uppercase">CORE ENGINE</span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping inline-block"></span>
+              </div>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span class="text-3xl font-bold text-emerald-400 font-pixel">ONLINE</span>
+              </div>
+              <p class="text-xs text-gray-400 mt-2 font-mono">
+                Latency: <strong id="ping-latency-value" class="text-white font-bold">18ms</strong>
+              </p>
+            </div>
+
+            <!-- TPS -->
+            <div class="mc-panel-dark p-5 border-2 border-[#555] shadow-lg">
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-400 font-mono uppercase">TICK RATE</span>
+                <i data-lucide="activity" class="w-4 h-4 text-cyan-400"></i>
+              </div>
+              <div class="mt-2">
+                <span class="text-3xl font-bold text-white font-pixel">20.00 TPS</span>
+              </div>
+              <div class="w-full bg-gray-700 h-2 mt-3 rounded-full overflow-hidden">
+                <div class="bg-cyan-400 h-full w-full animate-pulse"></div>
+              </div>
+            </div>
+
+            <!-- RAM -->
+            <div class="mc-panel-dark p-5 border-2 border-[#555] shadow-lg">
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-400 font-mono uppercase">MEMORY ALLOCATION</span>
+                <i data-lucide="hard-drive" class="w-4 h-4 text-amber-400"></i>
+              </div>
+              <div class="mt-2">
+                <span class="text-3xl font-bold text-white font-pixel">48.2 GB</span>
+              </div>
+              <p class="text-xs text-gray-400 mt-2 font-mono">
+                Total Capacity: <span class="text-gray-300">64.0 GB DDR5</span>
+              </p>
+            </div>
+
+            <!-- CPU -->
+            <div class="mc-panel-dark p-5 border-2 border-[#555] shadow-lg">
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-400 font-mono uppercase">CPU LOAD</span>
+                <i data-lucide="cpu" class="w-4 h-4 text-purple-400"></i>
+              </div>
+              <div class="mt-2">
+                <span class="text-3xl font-bold text-white font-pixel">18.4%</span>
+              </div>
+              <p class="text-xs text-emerald-400 mt-2 uppercase font-mono font-bold">
+                Optimal Sandbox Temperatures
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Lead Capture Form Section -->
+      <section id="beta-registration" class="py-16 px-4 bg-[#1f1a17] scroll-mt-20">
+        <div class="max-w-4xl mx-auto">
+          <div class="mc-panel p-6 md:p-8 shadow-[8px_8px_0px_#111] border-4 border-white grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            
+            <!-- Left Info column -->
+            <div class="md:col-span-7 space-y-4 text-gray-900">
+              <div class="inline-flex items-center gap-1.5 bg-[#1b5e20] text-white px-2.5 py-1 text-xs font-pixel">
+                <i data-lucide="shield" class="w-3.5 h-3.5 text-emerald-300"></i>
+                <span>VERIFIED SECURE VAULT</span>
+              </div>
+
+              <h2 class="text-3xl font-bold text-gray-950 font-pixel uppercase leading-none drop-shadow-sm">
+                CLAIM CLOSED BETA KEY
+              </h2>
+
+              <p class="text-sm font-mono text-gray-800 leading-snug">
+                We are launching Season 15 soon! Register your email address to lock down an official Closed Beta Key, giving you immediate priority server queue access and a <strong>Free Mythic Weapon Crate</strong> upon first join!
+              </p>
+
+              <div class="bg-[#8b8b8b]/30 p-3 border-2 border-[#555] font-mono text-xs text-gray-800 space-y-1">
+                <p class="font-bold text-black uppercase flex items-center gap-1 text-[11px]">
+                  <i data-lucide="database" class="w-3.5 h-3.5 text-gray-700"></i>
+                  <span>Secure Backend Vault Status</span>
+                </p>
+                <p class="flex justify-between">
+                  <span>Connection Engine:</span>
+                  <strong class="text-black">EXPRESS NODE_JS</strong>
+                </p>
+                <p class="flex justify-between">
+                  <span>Persistence Layer:</span>
+                  <strong class="text-emerald-950">leads.json Database</strong>
+                </p>
+                <p class="flex justify-between">
+                  <span>Locked Submissions:</span>
+                  <strong class="text-emerald-950"><span id="leads-count-val">0</span> Registered Emails</strong>
+                </p>
+              </div>
+            </div>
+
+            <!-- Right Registration Column -->
+            <div class="md:col-span-5 bg-[#727272] p-5 border-4 border-[#3d3d3d] shadow-lg text-white">
+              <div class="flex items-center justify-between pb-2 mb-4 border-b-2 border-[#555]">
+                <span class="font-pixel text-xs text-yellow-300">BETA_REGISTRY.EXE</span>
+                <i data-lucide="database" class="w-4 h-4 text-yellow-300 animate-pulse"></i>
+              </div>
+
+              <!-- Input Container state -->
+              <form id="lead-input-container" onsubmit="submitLeadForm(event)" class="space-y-4">
+                <p class="text-xs font-mono text-gray-200 leading-tight">
+                  Enter your email to mint a custom closed beta access key directly:
+                </p>
+
+                <div class="space-y-1.5">
+                  <label class="block text-[11px] font-pixel text-gray-300 uppercase">Your Email Address</label>
+                  <div class="relative">
+                    <input
+                      id="lead-email"
+                      type="email"
+                      required
+                      placeholder="alex@minecraft.net"
+                      class="w-full bg-[#141414] border-2 border-[#3d3d3d] px-3 py-2 text-sm text-white font-mono placeholder-gray-600 focus:outline-none focus:border-yellow-400"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  id="lead-submit-btn"
+                  type="submit"
+                  class="mc-button-green w-full py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <i data-lucide="sparkles" class="w-4 h-4 text-yellow-300 animate-spin"></i>
+                  <span>ACTIVATE CLOSED BETA ACCESS</span>
+                </button>
+              </form>
+
+              <!-- Success Output Container (hidden initially) -->
+              <div id="lead-success-container" class="hidden text-center space-y-4 py-2">
+                <div class="w-12 h-12 bg-[#1b5e20] border-2 border-white rounded-full flex items-center justify-center mx-auto text-white shadow-md">
+                  <i data-lucide="check-circle" class="w-6 h-6 text-emerald-300 animate-bounce"></i>
+                </div>
+
+                <div class="space-y-1">
+                  <h4 class="font-pixel text-emerald-300 text-xs">MINTING SUCCESSFUL!</h4>
+                  <p class="text-[11px] text-gray-200 font-mono">Your custom closed beta key is activated:</p>
+                </div>
+
+                <div id="generated-key-box" class="bg-[#141414] border-2 border-emerald-500 py-2.5 px-3 font-mono text-sm text-yellow-300 tracking-wider select-all">
+                  PR-XXXX-XXXX-XXXX-XXXX
+                </div>
+
+                <p class="text-[10px] text-gray-300 leading-tight font-mono">
+                  This key has been registered inside the secure local backend vault database. Save it and present it upon joining!
+                </p>
+
+                <button
+                  type="button"
+                  onclick="resetLeadForm()"
+                  class="text-xs text-amber-300 hover:text-amber-200 underline block mx-auto font-mono"
+                >
+                  Register Another Account
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Bottom helper / admin export block -->
+          <div class="mt-6 pt-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <button
+              onclick="exportLeads()"
+              class="mc-button-green px-5 py-2.5 text-xs font-bold flex items-center justify-center gap-2"
+            >
+              <i data-lucide="download" class="w-4 h-4 text-white"></i>
+              <span>EXPORT LEADS AS JSON</span>
+            </button>
+
+            <button
+              onclick="toggleHelpInfo()"
+              class="text-xs text-amber-400 hover:text-amber-300 font-pixel flex items-center gap-1.5 underline"
+            >
+              <i data-lucide="help-circle" class="w-3.5 h-3.5 shrink-0 text-amber-400"></i>
+              <span>HOW TO VIEW AND EXPORT YOUR DATA?</span>
+            </button>
+          </div>
+
+          <!-- Helper instructions card (hidden initially) -->
+          <div id="dev-info-block" class="hidden mt-4 mc-panel-dark border-2 border-[#555] p-4 text-xs font-mono space-y-2 text-gray-300">
+            <p class="font-bold text-white uppercase text-xs">💾 Static Database Operations:</p>
+            <p>
+              To make this website fully static and compatible with GitHub Pages, your leads are stored client-side in the browser's <code>localStorage</code>.
+            </p>
+            <p>
+              This means no databases or servers are required! You can test submitting multiple emails, and they will accumulate here.
+            </p>
+            <p class="text-emerald-400 font-bold">
+              Click "EXPORT LEADS AS JSON" anytime to download your list of registered beta keys!
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Crafting Bench Interactive Playground -->
+      <section id="crafting-playground" class="py-16 px-4 max-w-6xl mx-auto scroll-mt-20">
+        
+        <!-- Title -->
+        <div class="text-center mb-10">
+          <h2 class="text-3xl md:text-5xl font-bold text-amber-400 font-pixel tracking-wide uppercase drop-shadow-[3px_3px_0_#000] mb-3">
+            INTERACTIVE CRAFTING BENCH
+          </h2>
+          <p class="text-gray-300 max-w-2xl mx-auto text-lg md:text-xl font-mono leading-tight">
+            Select materials from your inventory and arrange them on the 3x3 crafting grid. Craft legendary gear to unlock homepage achievements!
+          </p>
+        </div>
+
+        <!-- Main Crafting Container -->
+        <div class="mc-panel p-6 md:p-8 shadow-[8px_8px_0px_#111] grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- LEFT: Material Inventory (Cols 1-5) -->
+          <div class="lg:col-span-5 bg-[#8b8b8b] p-4 border-4 border-[#373737] shadow-inner">
+            <div class="flex items-center justify-between mb-3 pb-2 border-b-2 border-[#555]">
+              <h3 class="font-pixel text-lg font-bold text-gray-900 uppercase">INVENTORY (10)</h3>
+              <button
+                onclick="toggleGuide()"
+                class="mc-button bg-[#388e3c] px-2 py-1 text-xs flex items-center gap-1"
+              >
+                <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+                <span>RECIPE BOOK</span>
+              </button>
+            </div>
+
+            <p class="text-xs text-gray-800 font-mono mb-3">
+              Click an item to hold in cursor: <strong id="current-cursor-item" class="text-black underline">Oak Planks</strong>
+            </p>
+
+            <div class="grid grid-cols-5 gap-2.5">
+              <!-- Material Slots -->
+              <button id="inv-wood" onclick="selectMaterial('wood')" class="mc-slot w-12 h-12 md:w-14 md:h-14 flex flex-col items-center justify-center relative transition-all" title="Oak Planks">
+                <span class="text-2xl md:text-3xl select-none">🪵</span>
+              </button>
+              <button id="inv-stick" onclick="selectMaterial('stick')" class="mc-slot w-12 h-12 md:w-14 md:h-14 flex flex-col items-center justify-center relative transition-all" title="Wooden Stick">
+                <span class="text-2xl md:text-3xl select-none">🦯</span>
+              </button>
+              <button id="inv-stone" onclick="selectMaterial('stone')" class="mc-slot w-12 h-12 md:w-14 md:h-14 flex flex-col items-center justify-center relative transition-all" title="Cobblestone">
+                <span class="text-2xl md:text-3xl select-none">🪨</span>
+              </button>
+              <button id="inv-iron" onclick="selectMaterial('iron')" class="mc-slot w-12 h-12 md:w-14 md:h-14 flex flex-col items-center justify-center relative transition-all" title="Iron Ingot">
+                <span class="text-2xl md:text-3xl select-none">⚪</span>
+              </button>
+              <button id="inv-gold" onclick="selectMaterial('gold')" class="mc-slot w-12 h-12 md:w-14 md:h-14 flex flex-col items-center justify-center relative transition-all" title="Gold Ingot">
+                <span class="text-2xl md:text-3xl select-none">🟡</span>
+              </button>
+              <button id="inv-diamond" onclick="selectMaterial('diamond')" class="mc-slot w-12 h-12 md:w-14 md:h-14 flex flex-col items-center justify-center relative transition-all" title="Diamond">
+                <span class="text-2xl md:text-3xl select-none">💎</span>
+              </button>
+              <button id="inv-redstone" onclick="selectMaterial('redstone')" class="mc-slot w-12 h-12 md:w-14 md:h-14 flex flex-col items-center justify-center relative transition-all" title="Redstone Dust">
+                <span class="text-2xl md:text-3xl select-none">🔴</span>
+              </button>
+              <button id="inv-gunpowder" onclick="selectMaterial('gunpowder')" class="mc-slot w-12 h-12 md:w-14 md:h-14 flex flex-col items-center justify-center relative transition-all" title="Gunpowder">
+                <span class="text-2xl md:text-3xl select-none">🌑</span>
+              </button>
+              <button id="inv-sand" onclick="selectMaterial('sand')" class="mc-slot w-12 h-12 md:w-14 md:h-14 flex flex-col items-center justify-center relative transition-all" title="Sand">
+                <span class="text-2xl md:text-3xl select-none">⏳</span>
+              </button>
+              <button id="inv-apple" onclick="selectMaterial('apple')" class="mc-slot w-12 h-12 md:w-14 md:h-14 flex flex-col items-center justify-center relative transition-all" title="Red Apple">
+                <span class="text-2xl md:text-3xl select-none">🍎</span>
+              </button>
+            </div>
+
+            <!-- Recipe Guide Book Panel -->
+            <div id="guide-book" class="hidden mt-4 pt-4 border-t-2 border-[#555] bg-[#727272] p-3 border-2 border-white text-white">
+              <h4 class="font-pixel text-sm font-bold text-yellow-300 mb-2 uppercase">QUICK RECIPES:</h4>
+              <div class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                <div class="flex items-center justify-between bg-[#2b2b2b] p-1.5 text-xs">
+                  <span class="flex items-center gap-1.5 font-mono">
+                    <span>🗡️</span>
+                    <span class="font-bold">Diamond Sword</span>
+                  </span>
+                  <button onclick="autoFillRecipe('diamond_sword')" class="mc-button bg-blue-600 px-2 py-0.5 text-[10px]">AUTO-FILL</button>
+                </div>
+                <div class="flex items-center justify-between bg-[#2b2b2b] p-1.5 text-xs">
+                  <span class="flex items-center gap-1.5 font-mono">
+                    <span>⛏️</span>
+                    <span class="font-bold">Diamond Pickaxe</span>
+                  </span>
+                  <button onclick="autoFillRecipe('diamond_pickaxe')" class="mc-button bg-blue-600 px-2 py-0.5 text-[10px]">AUTO-FILL</button>
+                </div>
+                <div class="flex items-center justify-between bg-[#2b2b2b] p-1.5 text-xs">
+                  <span class="flex items-center gap-1.5 font-mono">
+                    <span>🍏</span>
+                    <span class="font-bold">Enchanted Golden Apple</span>
+                  </span>
+                  <button onclick="autoFillRecipe('golden_apple')" class="mc-button bg-blue-600 px-2 py-0.5 text-[10px]">AUTO-FILL</button>
+                </div>
+                <div class="flex items-center justify-between bg-[#2b2b2b] p-1.5 text-xs">
+                  <span class="flex items-center gap-1.5 font-mono">
+                    <span>🧨</span>
+                    <span class="font-bold">TNT Block</span>
+                  </span>
+                  <button onclick="autoFillRecipe('tnt')" class="mc-button bg-blue-600 px-2 py-0.5 text-[10px]">AUTO-FILL</button>
+                </div>
+                <div class="flex items-center justify-between bg-[#2b2b2b] p-1.5 text-xs">
+                  <span class="flex items-center gap-1.5 font-mono">
+                    <span>🛡️</span>
+                    <span class="font-bold">Iron Chestplate</span>
+                  </span>
+                  <button onclick="autoFillRecipe('iron_chestplate')" class="mc-button bg-blue-600 px-2 py-0.5 text-[10px]">AUTO-FILL</button>
+                </div>
+                <div class="flex items-center justify-between bg-[#2b2b2b] p-1.5 text-xs">
+                  <span class="flex items-center gap-1.5 font-mono">
+                    <span>🪓</span>
+                    <span class="font-bold">Cobblestone Axe</span>
+                  </span>
+                  <button onclick="autoFillRecipe('stone_axe')" class="mc-button bg-blue-600 px-2 py-0.5 text-[10px]">AUTO-FILL</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- MIDDLE: 3x3 Crafting Grid (Cols 6-8) -->
+          <div class="lg:col-span-4 flex flex-col items-center justify-center bg-[#a8a8a8] p-6 border-4 border-[#555] shadow-inner">
+            <div class="flex items-center justify-between w-full mb-3">
+              <span class="font-pixel text-sm font-bold text-gray-900 uppercase">3x3 CRAFTING</span>
+              <button
+                onclick="clearGrid()"
+                class="text-xs text-red-800 hover:text-red-950 font-bold flex items-center gap-1 cursor-pointer"
+                title="Clear Crafting Table"
+              >
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                <span class="font-pixel uppercase">CLEAR</span>
+              </button>
+            </div>
+
+            <!-- 3x3 Slots -->
+            <div class="grid grid-cols-3 gap-2 bg-[#727272] p-3 border-4 border-[#373737] shadow-lg">
+              <button id="grid-slot-0" onclick="gridSlotClick(0)" class="mc-slot w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center text-3xl select-none relative"></button>
+              <button id="grid-slot-1" onclick="gridSlotClick(1)" class="mc-slot w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center text-3xl select-none relative"></button>
+              <button id="grid-slot-2" onclick="gridSlotClick(2)" class="mc-slot w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center text-3xl select-none relative"></button>
+              <button id="grid-slot-3" onclick="gridSlotClick(3)" class="mc-slot w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center text-3xl select-none relative"></button>
+              <button id="grid-slot-4" onclick="gridSlotClick(4)" class="mc-slot w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center text-3xl select-none relative"></button>
+              <button id="grid-slot-5" onclick="gridSlotClick(5)" class="mc-slot w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center text-3xl select-none relative"></button>
+              <button id="grid-slot-6" onclick="gridSlotClick(6)" class="mc-slot w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center text-3xl select-none relative"></button>
+              <button id="grid-slot-7" onclick="gridSlotClick(7)" class="mc-slot w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center text-3xl select-none relative"></button>
+              <button id="grid-slot-8" onclick="gridSlotClick(8)" class="mc-slot w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center text-3xl select-none relative"></button>
+            </div>
+
+            <p class="text-xs text-gray-700 mt-3 text-center font-mono">
+              Click grid slots to insert and place active items.
+            </p>
+          </div>
+
+          <!-- RIGHT: Output Result (Cols 9-12) -->
+          <div class="lg:col-span-3 flex flex-col items-center justify-center bg-[#8b8b8b] p-6 border-4 border-[#373737] h-full">
+            <span class="font-pixel text-sm font-bold text-gray-900 mb-4 uppercase">RESULT</span>
+            
+            <div class="flex items-center gap-4">
+              <span class="text-3xl font-bold text-gray-800">➔</span>
+              
+              <!-- Output Slot -->
+              <button
+                id="craft-result-slot"
+                onclick="triggerCraft()"
+                disabled
+                class="mc-slot w-20 h-20 flex flex-col items-center justify-center relative transition-all opacity-60 cursor-not-allowed"
+              >
+                <span class="text-xs text-gray-600 font-mono text-center px-1">No Recipe</span>
+              </button>
+            </div>
+
+            <!-- Description Output box -->
+            <div id="craft-matched-details" class="w-full">
+              <p class="text-xs text-gray-700 mt-6 text-center">
+                Arrange items on grid or use the <strong class="text-black">Recipe Book</strong>!
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Achievements Toast Drawer -->
+        <div id="achievements-container" class="hidden mt-8 mc-panel-dark p-4 border-2 border-yellow-500 max-w-2xl mx-auto flex items-center gap-3 shadow-xl">
+          <i data-lucide="award" class="w-8 h-8 text-yellow-400 shrink-0 animate-spin"></i>
+          <div class="w-full">
+            <h4 class="text-yellow-300 font-pixel text-sm flex items-center justify-between">
+              <span>HOMEPAGE ACHIEVEMENTS UNLOCKED (<span id="ach-count">0/6</span>)</span>
+              <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 inline"></i>
+            </h4>
+            <div id="ach-badges" class="flex flex-wrap gap-2 mt-2">
+              <!-- Achievements items injected -->
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Game Realms Section -->
+      <section class="py-16 px-4 max-w-7xl mx-auto">
+        
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-5xl font-bold text-white font-pixel tracking-wider uppercase drop-shadow-[3px_3px_0_#111]">
+            EXPLORE OUR <span class="text-amber-400">GAME REALMS</span>
+          </h2>
+          <p class="text-gray-400 text-lg mt-2 max-w-2xl mx-auto">
+            From peaceful economy sky islands to high-stakes obsidian bed battles. Choose your destiny.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Survival Realm -->
+          <div class="mc-panel-dark flex flex-col justify-between p-6 border-4 border-[#3d3d3d] hover:border-amber-500 transition-all shadow-[6px_6px_0px_#000] group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-4xl p-2 bg-[#1a1614] border-2 border-white/20 shadow-md group-hover:scale-110 transition-transform">🌍</span>
+                <span class="font-pixel text-[10px] px-2 py-1 font-bold text-black shadow-sm bg-[#4caf50]">MOST POPULAR</span>
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold text-white font-pixel mb-2 group-hover:text-amber-300 transition-colors">
+                Hardcore SMP Survival
+              </h3>
+              <p class="text-sm text-gray-300 mb-6 leading-relaxed font-mono">
+                Pure vanilla+ economy sandbox. Claim your land, build massive automated farms, and survive the blood moon events.
+              </p>
+            </div>
+            <div class="pt-4 border-t-2 border-[#3d3d3d]">
+              <div class="flex items-center justify-between text-xs text-gray-400 mb-3 font-mono">
+                <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
+                  <i data-lucide="users" class="w-4 h-4"></i>
+                  <span>642 Online</span>
+                </span>
+                <span>v1.20.4</span>
+              </div>
+              <button onclick="copyServerIp('Hardcore SMP')" class="mc-button w-full py-2.5 text-xs font-bold flex items-center justify-center gap-2 group-hover:bg-amber-600 transition-colors">
+                <span>JOIN REALM</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bedwars Realm -->
+          <div class="mc-panel-dark flex flex-col justify-between p-6 border-4 border-[#3d3d3d] hover:border-amber-500 transition-all shadow-[6px_6px_0px_#000] group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-4xl p-2 bg-[#1a1614] border-2 border-white/20 shadow-md group-hover:scale-110 transition-transform">🛏️</span>
+                <span class="font-pixel text-[10px] px-2 py-1 font-bold text-black shadow-sm bg-[#e53935]">FAST PVP</span>
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold text-white font-pixel mb-2 group-hover:text-amber-300 transition-colors">
+                Pixel Bedwars PvP
+              </h3>
+              <p class="text-sm text-gray-300 mb-6 leading-relaxed font-mono">
+                Protect your obsidian bed while bridging across floating islands to eliminate rival teams with fireballs and iron golems.
+              </p>
+            </div>
+            <div class="pt-4 border-t-2 border-[#3d3d3d]">
+              <div class="flex items-center justify-between text-xs text-gray-400 mb-3 font-mono">
+                <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
+                  <i data-lucide="users" class="w-4 h-4"></i>
+                  <span>418 Online</span>
+                </span>
+                <span>1.8.9 - 1.20</span>
+              </div>
+              <button onclick="copyServerIp('Pixel Bedwars')" class="mc-button w-full py-2.5 text-xs font-bold flex items-center justify-center gap-2 group-hover:bg-amber-600 transition-colors">
+                <span>JOIN REALM</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Skyblock Realm -->
+          <div class="mc-panel-dark flex flex-col justify-between p-6 border-4 border-[#3d3d3d] hover:border-amber-500 transition-all shadow-[6px_6px_0px_#000] group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-4xl p-2 bg-[#1a1614] border-2 border-white/20 shadow-md group-hover:scale-110 transition-transform">☁️</span>
+                <span class="font-pixel text-[10px] px-2 py-1 font-bold text-black shadow-sm bg-[#03a9f4]">ECONOMY</span>
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold text-white font-pixel mb-2 group-hover:text-amber-300 transition-colors">
+                Skyblock Realms
+              </h3>
+              <p class="text-sm text-gray-300 mb-6 leading-relaxed font-mono">
+                Start on a tiny floating grass island with a bucket of lava and ice. Expand into a multi-million dollar industrial sky empire.
+              </p>
+            </div>
+            <div class="pt-4 border-t-2 border-[#3d3d3d]">
+              <div class="flex items-center justify-between text-xs text-gray-400 mb-3 font-mono">
+                <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
+                  <i data-lucide="users" class="w-4 h-4"></i>
+                  <span>295 Online</span>
+                </span>
+                <span>v1.20.4</span>
+              </div>
+              <button onclick="copyServerIp('Skyblock Realms')" class="mc-button w-full py-2.5 text-xs font-bold flex items-center justify-center gap-2 group-hover:bg-amber-600 transition-colors">
+                <span>JOIN REALM</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Factions Realm -->
+          <div class="mc-panel-dark flex flex-col justify-between p-6 border-4 border-[#3d3d3d] hover:border-amber-500 transition-all shadow-[6px_6px_0px_#000] group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-4xl p-2 bg-[#1a1614] border-2 border-white/20 shadow-md group-hover:scale-110 transition-transform">⚔️</span>
+                <span class="font-pixel text-[10px] px-2 py-1 font-bold text-black shadow-sm bg-[#ff9800]">HARDCORE</span>
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold text-white font-pixel mb-2 group-hover:text-amber-300 transition-colors">
+                Anarchy Factions
+              </h3>
+              <p class="text-sm text-gray-300 mb-6 leading-relaxed font-mono">
+                Form alliances, construct impregnable obsidian water cannons, and raid enemy faction vaults for spawners.
+              </p>
+            </div>
+            <div class="pt-4 border-t-2 border-[#3d3d3d]">
+              <div class="flex items-center justify-between text-xs text-gray-400 mb-3 font-mono">
+                <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
+                  <i data-lucide="users" class="w-4 h-4"></i>
+                  <span>185 Online</span>
+                </span>
+                <span>1.8.9 Combat</span>
+              </div>
+              <button onclick="copyServerIp('Anarchy Factions')" class="mc-button w-full py-2.5 text-xs font-bold flex items-center justify-center gap-2 group-hover:bg-amber-600 transition-colors">
+                <span>JOIN REALM</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Patch Notes & News Chronicles -->
+      <section class="py-16 px-4 bg-stone-pattern border-t-8 border-[#222]">
+        <div class="max-w-5xl mx-auto">
+          
+          <div class="flex items-center gap-3 mb-10">
+            <i data-lucide="scroll" class="w-8 h-8 text-amber-400"></i>
+            <h2 class="text-3xl md:text-5xl font-bold text-white font-pixel tracking-wide uppercase drop-shadow-[3px_3px_0_#000]">
+              PATCH NOTES & CHRONICLES
+            </h2>
+          </div>
+
+          <div class="space-y-6">
+            
+            <!-- Update post -->
+            <article class="mc-panel p-6 md:p-8 shadow-[6px_6px_0px_#111] relative overflow-hidden">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b-4 border-[#888] pb-4 mb-4">
+                <div class="flex items-center gap-3">
+                  <span class="font-pixel text-xs px-2 py-0.5 text-white bg-blue-600 uppercase">UPDATE</span>
+                  <span class="text-xs font-mono text-gray-700 font-bold uppercase">2 HOURS AGO</span>
+                </div>
+                <span class="text-xs font-mono text-gray-800">
+                  Posted by <strong class="text-black">Admin_Notch</strong>
+                </span>
+              </div>
+
+              <h3 class="text-xl md:text-2xl font-bold text-gray-950 font-pixel mb-3">
+                v2.4 Nether Bastion Overhaul & Custom Enchants
+              </h3>
+
+              <p class="text-gray-900 leading-relaxed text-base md:text-lg mb-6 font-mono">
+                We have completely reset the Nether realm! Explore new Piglin fortress dungeons, discover tier-5 custom enchantments like Lifesteal and Excavator, and battle the Infernal Dragon boss every Saturday.
+              </p>
+
+              <div class="flex items-center justify-end pt-2">
+                <button
+                  onclick="likeNews('nether_update')"
+                  class="mc-button bg-[#388e3c] px-3 py-1 text-xs flex items-center gap-1.5 active:scale-95"
+                >
+                  <i data-lucide="thumbs-up" class="w-3.5 h-3.5 text-white"></i>
+                  <span>GG (<span id="likes-count-nether_update">342</span>)</span>
+                </button>
+              </div>
+            </article>
+
+            <!-- Event Post -->
+            <article class="mc-panel p-6 md:p-8 shadow-[6px_6px_0px_#111] relative overflow-hidden">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b-4 border-[#888] pb-4 mb-4">
+                <div class="flex items-center gap-3">
+                  <span class="font-pixel text-xs px-2 py-0.5 text-white bg-emerald-600 uppercase">EVENT</span>
+                  <span class="text-xs font-mono text-gray-700 font-bold uppercase">YESTERDAY</span>
+                </div>
+                <span class="text-xs font-mono text-gray-800">
+                  Posted by <strong class="text-black">Mod_Jeb</strong>
+                </span>
+              </div>
+
+              <h3 class="text-xl md:text-2xl font-bold text-gray-950 font-pixel mb-3">
+                Double mcMMO XP Weekend + Crate Giveaway
+              </h3>
+
+              <p class="text-gray-900 leading-relaxed text-base md:text-lg mb-6 font-mono">
+                Join us this Friday through Sunday for 2X skill leveling speed across Mining, Herbalism, and Acrobatics! Every 30 minutes online grants 1 free Mystery Vote Key.
+              </p>
+
+              <div class="flex items-center justify-end pt-2">
+                <button
+                  onclick="likeNews('weekend_xp')"
+                  class="mc-button bg-[#388e3c] px-3 py-1 text-xs flex items-center gap-1.5 active:scale-95"
+                >
+                  <i data-lucide="thumbs-up" class="w-3.5 h-3.5 text-white"></i>
+                  <span>GG (<span id="likes-count-weekend_xp">519</span>)</span>
+                </button>
+              </div>
+            </article>
+
+            <!-- Maintenance Post -->
+            <article class="mc-panel p-6 md:p-8 shadow-[6px_6px_0px_#111] relative overflow-hidden">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b-4 border-[#888] pb-4 mb-4">
+                <div class="flex items-center gap-3">
+                  <span class="font-pixel text-xs px-2 py-0.5 text-white bg-amber-600 uppercase">MAINTENANCE</span>
+                  <span class="text-xs font-mono text-gray-700 font-bold uppercase">JUNE 22</span>
+                </div>
+                <span class="text-xs font-mono text-gray-800">
+                  Posted by <strong class="text-black">Dev_Dinnerbone</strong>
+                </span>
+              </div>
+
+              <h3 class="text-xl md:text-2xl font-bold text-gray-950 font-pixel mb-3">
+                Server Hardware Upgrade: Ryzen 9 7950X3D Deployment
+              </h3>
+
+              <p class="text-gray-900 leading-relaxed text-base md:text-lg mb-6 font-mono">
+                Say goodbye to block lag! We migrated all 4 realm nodes to dedicated overclocked hardware with NVMe storage. Server TPS locked solid at 20.00 even with 1,500 active redstone contraptions.
+              </p>
+
+              <div class="flex items-center justify-end pt-2">
+                <button
+                  onclick="likeNews('hardware_up')"
+                  class="mc-button bg-[#388e3c] px-3 py-1 text-xs flex items-center gap-1.5 active:scale-95"
+                >
+                  <i data-lucide="thumbs-up" class="w-3.5 h-3.5 text-white"></i>
+                  <span>GG (<span id="likes-count-hardware_up">812</span>)</span>
+                </button>
+              </div>
+            </article>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Leaderboards -->
+      <section class="py-16 px-4 max-w-5xl mx-auto">
+        
+        <div class="text-center mb-10">
+          <h2 class="text-3xl md:text-5xl font-bold text-amber-400 font-pixel tracking-wide uppercase drop-shadow-[3px_3px_0_#000] flex items-center justify-center gap-3">
+            <i data-lucide="trophy" class="w-8 h-8 text-yellow-400 animate-bounce"></i>
+            <span>REALM HALL OF FAME</span>
+          </h2>
+          <p class="text-gray-400 mt-1 text-base md:text-lg">
+            Top players of Season 14 across PvP kills and economy wealth.
+          </p>
+        </div>
+
+        <div class="mc-panel-dark p-4 md:p-6 border-4 border-[#555] shadow-[8px_8px_0px_#000]">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left font-mono border-collapse">
+              <thead>
+                <tr class="border-b-4 border-[#444] text-gray-400 text-xs md:text-sm uppercase">
+                  <th class="py-3 px-4 font-pixel">Rank</th>
+                  <th class="py-3 px-4 font-pixel">Miner / Legend</th>
+                  <th class="py-3 px-4 font-pixel">Achievement Badge</th>
+                  <th class="py-3 px-4 text-right font-pixel">Season Record</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y-2 divide-[#333]">
+                
+                <!-- Rank 1 -->
+                <tr onclick="playClickSound()" class="hover:bg-white/5 transition-colors cursor-pointer bg-amber-950/30 font-bold text-amber-200">
+                  <td class="py-4 px-4 font-pixel text-lg md:text-xl">
+                    <span class="text-yellow-400">#1 👑</span>
+                  </td>
+                  <td class="py-4 px-4 flex items-center gap-3 font-mono">
+                    <span class="text-2xl select-none">👑</span>
+                    <span class="font-bold text-base md:text-lg hover:underline decoration-emerald-400">TechnoBlade_Fan</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="bg-[#222] border border-[#666] px-2.5 py-1 text-xs font-pixel tracking-wide text-emerald-300 inline-flex items-center gap-1">
+                      <i data-lucide="star" class="w-3 h-3 fill-emerald-300 text-emerald-300"></i>
+                      <span>PvP Warlord</span>
+                    </span>
+                  </td>
+                  <td class="py-4 px-4 text-right font-bold text-emerald-400 text-base md:text-lg">
+                    3,482 Kills
+                  </td>
+                </tr>
+
+                <!-- Rank 2 -->
+                <tr onclick="playClickSound()" class="hover:bg-white/5 transition-colors cursor-pointer text-gray-200">
+                  <td class="py-4 px-4 font-pixel text-lg md:text-xl">
+                    <span class="text-gray-300">#2 🥈</span>
+                  </td>
+                  <td class="py-4 px-4 flex items-center gap-3 font-mono">
+                    <span class="text-2xl select-none">🧙‍♂️</span>
+                    <span class="font-bold text-base md:text-lg hover:underline decoration-emerald-400">RedstoneWizard99</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="bg-[#222] border border-[#666] px-2.5 py-1 text-xs font-pixel tracking-wide text-emerald-300 inline-flex items-center gap-1">
+                      <i data-lucide="star" class="w-3 h-3 fill-emerald-300 text-emerald-300"></i>
+                      <span>Richest Miner</span>
+                    </span>
+                  </td>
+                  <td class="py-4 px-4 text-right font-bold text-emerald-400 text-base md:text-lg">
+                    $42.8 Million
+                  </td>
+                </tr>
+
+                <!-- Rank 3 -->
+                <tr onclick="playClickSound()" class="hover:bg-white/5 transition-colors cursor-pointer text-gray-200">
+                  <td class="py-4 px-4 font-pixel text-lg md:text-xl">
+                    <span class="text-amber-600">#3 🥉</span>
+                  </td>
+                  <td class="py-4 px-4 flex items-center gap-3 font-mono">
+                    <span class="text-2xl select-none">⚔️</span>
+                    <span class="font-bold text-base md:text-lg hover:underline decoration-emerald-400">CaptainSparklez_X</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="bg-[#222] border border-[#666] px-2.5 py-1 text-xs font-pixel tracking-wide text-emerald-300 inline-flex items-center gap-1">
+                      <i data-lucide="star" class="w-3 h-3 fill-emerald-300 text-emerald-300"></i>
+                      <span>Nether Slayer</span>
+                    </span>
+                  </td>
+                  <td class="py-4 px-4 text-right font-bold text-emerald-400 text-base md:text-lg">
+                    142 Dungeons
+                  </td>
+                </tr>
+
+                <!-- Rank 4 -->
+                <tr onclick="playClickSound()" class="hover:bg-white/5 transition-colors cursor-pointer text-gray-200">
+                  <td class="py-4 px-4 font-pixel text-lg md:text-xl">
+                    <span class="text-gray-500">#4</span>
+                  </td>
+                  <td class="py-4 px-4 flex items-center gap-3 font-mono">
+                    <span class="text-2xl select-none">🧱</span>
+                    <span class="font-bold text-base md:text-lg hover:underline decoration-emerald-400">Builder_Steve</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="bg-[#222] border border-[#666] px-2.5 py-1 text-xs font-pixel tracking-wide text-emerald-300 inline-flex items-center gap-1">
+                      <i data-lucide="star" class="w-3 h-3 fill-emerald-300 text-emerald-300"></i>
+                      <span>Master Architect</span>
+                    </span>
+                  </td>
+                  <td class="py-4 px-4 text-right font-bold text-emerald-400 text-base md:text-lg">
+                    840,000 Blocks
+                  </td>
+                </tr>
+
+                <!-- Rank 5 -->
+                <tr onclick="playClickSound()" class="hover:bg-white/5 transition-colors cursor-pointer text-gray-200">
+                  <td class="py-4 px-4 font-pixel text-lg md:text-xl">
+                    <span class="text-gray-500">#5</span>
+                  </td>
+                  <td class="py-4 px-4 flex items-center gap-3 font-mono">
+                    <span class="text-2xl select-none">🗺️</span>
+                    <span class="font-bold text-base md:text-lg hover:underline decoration-emerald-400">Alex_The_Explorer</span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="bg-[#222] border border-[#666] px-2.5 py-1 text-xs font-pixel tracking-wide text-emerald-300 inline-flex items-center gap-1">
+                      <i data-lucide="star" class="w-3 h-3 fill-emerald-300 text-emerald-300"></i>
+                      <span>Cartographer</span>
+                    </span>
+                  </td>
+                  <td class="py-4 px-4 text-right font-bold text-emerald-400 text-base md:text-lg">
+                    99.4% Map
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0f0d0c] border-t-8 border-[#3d3d3d] text-gray-400 py-12 px-4 mt-12 relative select-none">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b-2 border-[#222]">
+        
+        <!-- Col 1 -->
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-2xl">🟩</span>
+            <span class="font-pixel font-bold text-xl text-white">PIXEL REALMS</span>
+          </div>
+          <p class="text-sm leading-relaxed text-gray-400 font-mono">
+            Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft. Built with retro passion for the pixel gaming community.
+          </p>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="md:text-center">
+          <h4 class="font-pixel text-sm font-bold text-white uppercase mb-4 tracking-wider">REALM PORTALS</h4>
+          <div class="flex flex-col gap-2.5 items-start md:items-center text-sm font-mono">
+            <a href="https://store.pixelrealms.net" target="_blank" rel="noreferrer" onclick="playClickSound()" class="hover:text-amber-400 flex items-center gap-1.5">
+              <i data-lucide="shopping-bag" class="w-4 h-4 text-amber-400"></i>
+              <span>Official Web Store</span>
+            </a>
+            <a href="https://discord.gg/pixelrealms" target="_blank" rel="noreferrer" onclick="playClickSound()" class="hover:text-blue-400 flex items-center gap-1.5">
+              <span class="text-blue-400">💬</span>
+              <span>Discord Community</span>
+            </a>
+            <a href="#crafting-playground" onclick="playClickSound()" class="hover:text-emerald-400 flex items-center gap-1.5">
+              <span class="text-emerald-400">⛏️</span>
+              <span>Crafting Simulator</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 3: Server IP -->
+        <div class="md:text-right flex flex-col justify-between items-start md:items-end">
+          <div>
+            <h4 class="font-pixel text-sm font-bold text-white uppercase mb-2">CONNECT NOW</h4>
+            <div class="bg-[#1f1f1f] border-2 border-[#444] px-3 py-1.5 inline-block font-pixel text-amber-300 text-sm tracking-wide">
+              play.pixelrealms.net
+            </div>
+            <p class="text-xs text-gray-500 mt-1 font-mono">Version 1.8.9 - 1.20.4 Supported</p>
+          </div>
+
+          <button
+            onclick="playClickSound(); window.scrollTo({ top: 0, behavior: 'smooth' });"
+            class="mc-button mt-6 md:mt-0 px-4 py-2 text-xs font-bold flex items-center gap-2 active:scale-95"
+            title="Scroll back to top"
+          >
+            <span>BACK TO TOP</span>
+            <i data-lucide="arrow-up" class="w-3.5 h-3.5 text-white"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-gray-600">
+        <p>© 2026 PIXEL REALMS NETWORK. ALL RIGHTS RESERVED.</p>
+        <p class="flex items-center gap-1">
+          <span>FORGED WITH</span>
+          <i data-lucide="heart" class="w-3.5 h-3.5 text-red-500 fill-red-500 inline"></i>
+          <span>FOR RETRO SANDBOX GAMERS</span>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Floating Join Notification Modal/Toast -->
+    <div id="join-toast" class="hidden fixed bottom-6 right-6 z-50 mc-panel p-5 border-4 border-emerald-500 shadow-[8px_8px_0px_#000] max-w-sm animate-bounce">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-3xl">⚔️</span>
+        <div>
+          <h4 class="font-pixel font-bold text-sm text-emerald-950 uppercase">
+            READY TO CONQUER!
+          </h4>
+          <p class="text-xs text-gray-800 font-mono">
+            Selected Realm: <strong id="toast-realm">Hardcore SMP Survival</strong>
+          </p>
+        </div>
+      </div>
+      <p class="text-xs text-gray-900 font-mono mb-3 bg-white/60 p-2 border border-gray-400">
+        Server IP <strong class="text-black bg-amber-200 px-1">play.pixelrealms.net</strong> copied to clipboard! Open your Minecraft launcher (Java 1.8.9 - 1.20) and click <strong>Multiplayer ➔ Direct Connect</strong>.
+      </p>
+      <button
+        onclick="playClickSound(); document.getElementById('join-toast').classList.add('hidden');"
+        class="mc-button w-full py-1.5 text-xs font-bold"
+      >
+        DISMISS
+      </button>
+    </div>
+
+    <!-- Lucide Icons CDN script -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Canvas Confetti CDN script -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    
+    <!-- Link Core Javascript Logic -->
+    <script src="script.js"></script>
+
   </body>
 </html>
-
