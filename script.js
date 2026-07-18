@@ -176,6 +176,26 @@ async function fetchSubmissionsCount() {
     localSubmissionsCount = saved ? JSON.parse(saved).length : 0;
   }
   document.getElementById('leads-count-val').textContent = localSubmissionsCount;
+
+  // Query backend database health to show active status (MongoDB vs. Local JSON)
+  try {
+    const healthRes = await fetch('/api/health');
+    if (healthRes.ok) {
+      const healthData = await healthRes.json();
+      const statusLabel = document.getElementById('db-status-label');
+      if (statusLabel) {
+        if (healthData.database === 'mongodb') {
+          statusLabel.textContent = 'MongoDB Atlas Cloud';
+          statusLabel.className = 'text-emerald-600 font-bold';
+        } else {
+          statusLabel.textContent = 'leads.json Database';
+          statusLabel.className = 'text-emerald-950';
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('Could not fetch DB health status', err);
+  }
 }
 
 window.submitLeadForm = async function(event) {
