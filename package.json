@@ -10,9 +10,12 @@
     "lint": "echo 'No lint step needed'"
   },
   "dependencies": {
+    "@google/genai": "^2.12.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^4.21.2",
+    "express-rate-limit": "^8.6.0",
+    "helmet": "^8.3.0",
     "mongoose": "^9.7.4"
   },
   "devDependencies": {
