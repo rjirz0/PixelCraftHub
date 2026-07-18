@@ -224,7 +224,7 @@ window.submitLeadForm = async function(event) {
     accessKey: generatedKey,
     source: 'Static HTML Pixel Realms Portal',
     timestamp: new Date().toISOString(),
-    status: 'activated'
+    status: 'pending'
   };
 
   // 1. Save to browser local storage first as a safety lock

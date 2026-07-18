@@ -39,7 +39,7 @@ const leadSchema = new mongoose.Schema({
   accessKey: { type: String, default: '' },
   source: { type: String, default: 'Static HTML Pixel Realms Portal' },
   timestamp: { type: Date, default: Date.now },
-  status: { type: String, default: 'activated' }
+  status: { type: String, default: 'pending' }
 });
 
 // Avoid OverwriteModelError
@@ -59,10 +59,11 @@ async function getMongoConnection() {
 
   if (!mongoConnectionPromise) {
     mongoConnectionPromise = mongoose.connect(MONGODB_URI, {
+      dbName: 'BETA_REGISTRY',
       serverSelectionTimeoutMS: 5000,
     })
     .then((conn) => {
-      console.log('[MONGO] Connected to MongoDB Atlas successfully.');
+      console.log('[MONGO] Connected to MongoDB Atlas - targeting database: BETA_REGISTRY');
       return conn;
     })
     .catch((err) => {
@@ -113,7 +114,7 @@ app.post('/api/leads', async (req, res) => {
         accessKey: accessKey || '',
         source: source || 'Static HTML Pixel Realms Portal',
         timestamp: timestamp || new Date().toISOString(),
-        status: status || 'activated'
+        status: status || 'pending'
       });
       await newLead.save();
       console.log(`[MONGO] Registered new closed beta miner in Atlas: ${email}`);
@@ -133,7 +134,7 @@ app.post('/api/leads', async (req, res) => {
         accessKey: accessKey || '',
         source: source || 'Static HTML Pixel Realms Portal',
         timestamp: timestamp || new Date().toISOString(),
-        status: status || 'activated'
+        status: status || 'pending'
       };
 
       leads.push(newLead);
