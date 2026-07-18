@@ -183,13 +183,20 @@ async function fetchSubmissionsCount() {
     if (healthRes.ok) {
       const healthData = await healthRes.json();
       const statusLabel = document.getElementById('db-status-label');
+      const successVaultMsg = document.getElementById('success-vault-message');
       if (statusLabel) {
         if (healthData.database === 'mongodb') {
           statusLabel.textContent = 'MongoDB Atlas Cloud';
           statusLabel.className = 'text-emerald-600 font-bold';
+          if (successVaultMsg) {
+            successVaultMsg.textContent = 'This key has been registered inside the secure BETA_REGISTRY database. Save it and present it upon joining!';
+          }
         } else {
           statusLabel.textContent = 'leads.json Database';
           statusLabel.className = 'text-emerald-950';
+          if (successVaultMsg) {
+            successVaultMsg.textContent = 'This key has been registered inside the secure local backend vault database. Save it and present it upon joining!';
+          }
         }
       }
     }
