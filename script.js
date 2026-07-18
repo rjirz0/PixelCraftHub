@@ -124,7 +124,7 @@ window.copyServerIp = function(realmName = 'General') {
 
 window.dismissToast = function() {
   playClickSound();
-  document.getElementById('join-toast').add('hidden');
+  document.getElementById('join-toast').classList.add('hidden');
 };
 
 // --- Live Player Count Fluctuator ---
